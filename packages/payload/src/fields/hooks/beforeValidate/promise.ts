@@ -286,6 +286,8 @@ export const promise = async <T>({
 
     // Execute hooks
     if (field.hooks?.beforeValidate) {
+      // Hotfix to ensure that beforeValidate hooks always get the full data
+      await new Promise((resolve) => setTimeout(resolve, 1))
       for (const hook of field.hooks.beforeValidate) {
         const hookedValue = await hook({
           blockData,
